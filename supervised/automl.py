@@ -1,6 +1,7 @@
 import logging
 from supervised.base_automl import BaseAutoML
 from supervised.utils.config import LOG_LEVEL
+from joblibspark import register_spark
 
 # libraries for type hints
 from typing import Optional, Union, List
@@ -365,7 +366,9 @@ class AutoML(BaseAutoML):
         Returns:
             AutoML object: Returns `self`
         """
-        return self._fit(X, y, sample_weight, cv)
+        register_spark()
+        with parallel_backend('spark', n_jobs=3):
+            return self._fit(X, y, sample_weight, cv)
 
     def predict(self, X: Union[List, numpy.ndarray, pandas.DataFrame]) -> numpy.ndarray:
         """
