@@ -2,6 +2,7 @@ import logging
 from supervised.base_automl import BaseAutoML
 from supervised.utils.config import LOG_LEVEL
 from joblibspark import register_spark
+from sklearn.utils import parallel_backend
 
 # libraries for type hints
 from typing import Optional, Union, List
